@@ -212,6 +212,7 @@ line-height: 1.35; margin-bottom: 0.75rem; color: #141414;
 
 /* ─── OFFERINGS ─── */
 .offerings { background: white; padding: 6rem 0; }
+.offerings-inner { max-width: 1080px; margin: 0 auto; padding: 0 2rem; }
 .offerings-header {
 display: grid; grid-template-columns: 1fr 1fr;
 gap: 2.5rem; align-items: end; margin-bottom: 3.5rem;
@@ -229,15 +230,20 @@ letter-spacing: -0.02em;
 .card {
 border: 1px solid rgba(20,20,20,0.09); border-radius: 4px;
 padding: 2rem; background: #FAFAF8;
-transition: border-color 0.2s, box-shadow 0.2s;
+transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
 position: relative; overflow: hidden;
+will-change: transform;
 }
-.card:hover { border-color: #FF6A3D; box-shadow: 0 4px 24px rgba(255,106,61,0.08); }
+.card:hover {
+border-color: #FF6A3D;
+box-shadow: 0 8px 32px rgba(255,106,61,0.12);
+transform: translateY(-3px);
+}
 .card::before {
 content: ‘’;
 position: absolute; top: 0; left: 0; right: 0; height: 3px;
 background: #FF6A3D; transform: scaleX(0); transform-origin: left;
-transition: transform 0.3s;
+transition: transform 0.3s ease;
 }
 .card:hover::before { transform: scaleX(1); }
 
@@ -288,10 +294,11 @@ display: flex; gap: 0.6rem; align-items: flex-start;
 .outcomes-list li::before { content: ‘→’; color: #FF6A3D; flex-shrink: 0; font-size: 0.8rem; margin-top: 0.1em; }
 
 /* ─── FOUNDER ─── */
-.founder { padding: 6rem 0; }
+.founder { padding: 6rem 0; background: #F6EFE6; }
 .founder-inner {
-display: grid; grid-template-columns: 340px 1fr;
-gap: 5rem; align-items: start;
+max-width: 1080px; margin: 0 auto; padding: 0 2rem;
+display: grid; grid-template-columns: 320px 1fr;
+gap: 4rem; align-items: start;
 }
 .founder-card {
 background: #0E2A3A; border-radius: 6px;
@@ -341,7 +348,8 @@ border: 1px solid rgba(20,20,20,0.09); border-radius: 4px;
 background: white;
 transition: border-color 0.2s;
 }
-.moat-item:hover { border-color: rgba(255,106,61,0.3); }
+.moat-item:hover { border-color: rgba(255,106,61,0.5); box-shadow: 0 4px 16px rgba(255,106,61,0.08); transform: translateX(4px); }
+.moat-item { transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease; }
 .moat-arrow { color: #FF6A3D; flex-shrink: 0; font-size: 0.85rem; margin-top: 0.2rem; }
 .moat-text { font-size: 0.885rem; line-height: 1.62; color: #2C2C2C; }
 .moat-text strong { color: #141414; font-weight: 500; }
@@ -361,9 +369,14 @@ font-weight: 600; color: #F6EFE6;
 background: rgba(246,239,230,0.04);
 border: 1px solid rgba(246,239,230,0.09);
 border-radius: 4px; padding: 1.75rem;
-transition: border-color 0.2s;
+transition: border-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+will-change: transform;
 }
-.obj-card:hover { border-color: rgba(255,106,61,0.35); }
+.obj-card:hover {
+border-color: rgba(255,106,61,0.5);
+transform: translateY(-2px);
+box-shadow: 0 6px 24px rgba(255,106,61,0.1);
+}
 .obj-q {
 font-family: ‘Playfair Display’, serif;
 font-style: italic; font-size: 0.975rem;
@@ -438,7 +451,8 @@ nav { padding: 1rem 1.25rem; }
 .gap-grid, .cards, .obj-grid { grid-template-columns: 1fr; }
 .card.hero-card-offer { grid-column: span 1; grid-template-columns: 1fr; }
 .offerings-header { grid-template-columns: 1fr; gap: 1.25rem; }
-.founder-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+.offerings-inner { padding: 0 1.25rem; }
+.founder-inner { grid-template-columns: 1fr; gap: 2.5rem; padding: 0 1.25rem; }
 .founder-card { position: static; }
 footer { flex-direction: column; gap: 0.75rem; text-align: center; }
 .footer-links { justify-content: center; }
@@ -541,7 +555,7 @@ footer { flex-direction: column; gap: 0.75rem; text-align: center; }
 <!-- ─── OFFERINGS ─── -->
 
 <section class="offerings" id="offerings">
-  <div class="container">
+  <div class="offerings-inner">
     <div class="offerings-header">
       <h2 class="offerings-headline">Four ways to work with Seré</h2>
       <p class="offerings-note">Each offering builds toward the same outcome: caregiving transition conversations that are expected, not exceptional inside your organization. Start where you are.</p>
