@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seré — Workplace Language Infrastructure for Organizations</title>
+<meta name="description" content="Seré builds the language infrastructure organizations are missing for caregiving transitions and postpartum return. Not therapy. Not wellness. Culture change.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --papaya: #FF6A3D;
+    --bugambilia: #B0125B;
+    --talavera: #0E2A3A;
+    --sand: #F6EFE6;
+    --ink: #141414;
+    --ink-soft: #2C2C2C;
+    --muted: #787878;
+    --border: rgba(20,20,20,0.09);
+    --border-light: rgba(246,239,230,0.15);
+  }
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+font-family: ‘DM Sans’, sans-serif;
+background: #F6EFE6;
+color: #141414;
+overflow-x: hidden;
+-webkit-font-smoothing: antialiased;
+}
+
+/* ─── UTILITY ─── */
+.container { max-width: 1080px; margin: 0 auto; padding: 0 2rem; }
+.eyebrow {
+display: inline-flex; align-items: center; gap: 0.6rem;
+font-size: 0.7rem; font-weight: 500; letter-spacing: 0.14em;
+text-transform: uppercase; color: #B0125B;
+}
+.eyebrow::before { content: ‘’; width: 1.8rem; height: 1px; background: #B0125B; }
+
+/* ─── NAV ─── */
+nav {
+position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+display: flex; align-items: center; justify-content: space-between;
+padding: 1.1rem 2.5rem;
+background: rgba(246,239,230,0.94);
+backdrop-filter: blur(14px);
+-webkit-backdrop-filter: blur(14px);
+border-bottom: 1px solid rgba(20,20,20,0.09);
+}
+.nav-logo {
+font-family: ‘Playfair Display’, serif;
+font-size: 1.45rem; font-weight: 700;
+color: #141414; text-decoration: none;
+letter-spacing: -0.02em;
+}
+
+.nav-right { display: flex; align-items: center; gap: 1.5rem; }
+.nav-link { font-size: 0.82rem; color: #787878; text-decoration: none; transition: color 0.2s; }
+.nav-link:hover { color: #141414; }
+.btn {
+display: inline-block; text-decoration: none;
+font-family: ‘DM Sans’, sans-serif;
+font-weight: 500; border-radius: 2px;
+transition: background 0.2s, color 0.2s, transform 0.15s, border-color 0.2s;
+cursor: pointer; border: none;
+}
+.btn-dark { background: #141414; color: #F6EFE6; padding: 0.6rem 1.3rem; font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; }
+.btn-dark:hover { background: #FF6A3D; }
+.btn-papaya { background: #FF6A3D; color: white; padding: 0.95rem 2.2rem; font-size: 0.92rem; }
+.btn-papaya:hover { background: #B0125B; transform: translateY(-1px); }
+.btn-outline-dark { background: transparent; color: #141414; padding: 0.95rem 2.2rem; font-size: 0.92rem; border: 1.5px solid #141414; }
+.btn-outline-dark:hover { background: #141414; color: #F6EFE6; }
+.btn-outline-light { background: transparent; color: #F6EFE6; padding: 0.95rem 2.2rem; font-size: 0.92rem; border: 1.5px solid rgba(246,239,230,0.4); }
+.btn-outline-light:hover { background: rgba(246,239,230,0.1); border-color: #F6EFE6; }
+
+/* ─── HERO ─── */
+.hero {
+min-height: 100vh;
+display: grid;
+grid-template-columns: 55% 45%;
+padding-top: 4.5rem;
+position: relative;
+overflow: hidden;
+}
+.hero-left {
+display: flex; flex-direction: column; justify-content: center;
+padding: 5rem 3.5rem 5rem 2.5rem;
+position: relative; z-index: 2;
+}
+.hero-left .eyebrow { margin-bottom: 2rem; }
+
+.hero-headline {
+font-family: ‘Playfair Display’, serif;
+font-size: clamp(2.8rem, 4.2vw, 4.2rem);
+font-weight: 700; line-height: 1.06;
+letter-spacing: -0.025em;
+color: #141414; margin-bottom: 1.6rem;
+}
+.hero-headline em { font-style: italic; color: #FF6A3D; }
+
+.hero-sub {
+font-size: 1.05rem; font-weight: 300; line-height: 1.75;
+color: #2C2C2C; max-width: 46ch; margin-bottom: 2.75rem;
+}
+.hero-ctas { display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap; }
+.text-link {
+font-size: 0.88rem; color: #141414; text-decoration: none;
+border-bottom: 1px solid rgba(20,20,20,0.3); padding-bottom: 1px;
+transition: color 0.2s, border-color 0.2s;
+}
+.text-link:hover { color: #FF6A3D; border-color: #FF6A3D; }
+
+.hero-right {
+position: relative;
+display: flex; align-items: center; justify-content: center;
+padding: 2rem;
+}
+.hero-bg {
+position: absolute; inset: 0;
+background: #0E2A3A;
+clip-path: polygon(6% 0%, 100% 0%, 100% 100%, 0% 100%);
+}
+
+/* subtle grain overlay */
+.hero-bg::after {
+content: ‘’;
+position: absolute; inset: 0;
+background-image: url(“data:image/svg+xml,%3Csvg viewBox=‘0 0 256 256’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Cfilter id=‘noise’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.9’ numOctaves=‘4’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘100%25’ height=‘100%25’ filter=‘url(%23noise)’ opacity=‘0.04’/%3E%3C/svg%3E”);
+opacity: 0.4; pointer-events: none;
+}
+
+.hero-stats-card {
+position: relative; z-index: 2;
+background: rgba(246,239,230,0.06);
+border: 1px solid rgba(246,239,230,0.15);
+border-radius: 6px; padding: 2.25rem;
+max-width: 360px; width: 100%;
+backdrop-filter: blur(6px);
+}
+.card-label {
+font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase;
+color: rgba(246,239,230,0.45); margin-bottom: 2rem; font-weight: 500;
+}
+.stats { display: flex; flex-direction: column; gap: 0; }
+.stat { padding: 1.25rem 0; border-bottom: 1px solid rgba(246,239,230,0.1); }
+.stat:first-child { padding-top: 0; }
+.stat:last-child { border-bottom: none; padding-bottom: 0; }
+.stat-num {
+font-family: ‘Playfair Display’, serif;
+font-size: 2.6rem; font-weight: 700;
+color: #FF6A3D; line-height: 1;
+margin-bottom: 0.3rem;
+}
+.stat-text { font-size: 0.83rem; line-height: 1.5; color: rgba(246,239,230,0.75); }
+
+/* ─── INTERRUPT ─── */
+.interrupt {
+background: #141414;
+padding: 3.5rem 2rem;
+}
+.interrupt-inner {
+max-width: 780px; margin: 0 auto; text-align: center;
+}
+.interrupt-text {
+font-family: ‘Playfair Display’, serif;
+font-size: clamp(1.35rem, 2.4vw, 1.95rem);
+font-weight: 400; font-style: italic;
+color: rgba(246,239,230,0.88); line-height: 1.55;
+}
+.interrupt-text strong {
+font-style: normal; font-weight: 700; color: #FF6A3D;
+}
+
+/* ─── PROBLEM / GAP ─── */
+.problem { padding: 6rem 0; }
+.problem .eyebrow { margin-bottom: 1rem; }
+.problem-headline {
+font-family: ‘Playfair Display’, serif;
+font-size: clamp(1.8rem, 3vw, 2.6rem);
+font-weight: 700; line-height: 1.18;
+letter-spacing: -0.02em; margin-bottom: 4rem;
+max-width: 22ch;
+}
+
+.gap-grid {
+display: grid; grid-template-columns: 1fr 1fr;
+border: 1px solid rgba(20,20,20,0.09); border-radius: 4px;
+overflow: hidden; background: rgba(20,20,20,0.09);
+gap: 1px;
+}
+.gap-cell { padding: 2.25rem; background: #F6EFE6; }
+.gap-cell.dark { background: #141414; }
+.gap-cell-tag {
+font-size: 0.65rem; letter-spacing: 0.13em; text-transform: uppercase;
+font-weight: 500; margin-bottom: 0.9rem;
+color: #787878;
+}
+.gap-cell.dark .gap-cell-tag { color: rgba(246,239,230,0.35); }
+.gap-cell-head {
+font-family: ‘Playfair Display’, serif;
+font-size: 1.15rem; font-weight: 600;
+line-height: 1.35; margin-bottom: 0.75rem; color: #141414;
+}
+.gap-cell.dark .gap-cell-head { color: #F6EFE6; }
+.gap-cell-body { font-size: 0.875rem; line-height: 1.72; color: #787878; }
+.gap-cell.dark .gap-cell-body { color: rgba(246,239,230,0.62); }
+
+/* ─── OFFERINGS ─── */
+.offerings { background: white; padding: 6rem 0; }
+.offerings-inner { max-width: 1080px; margin: 0 auto; padding: 0 2rem; }
+.offerings-header {
+display: grid; grid-template-columns: 1fr 1fr;
+gap: 2.5rem; align-items: end; margin-bottom: 3.5rem;
+}
+.offerings-headline {
+font-family: ‘Playfair Display’, serif;
+font-size: clamp(1.9rem, 3.2vw, 2.6rem);
+font-weight: 700; line-height: 1.15;
+letter-spacing: -0.02em;
+}
+.offerings-note { font-size: 0.96rem; line-height: 1.72; color: #787878; }
+
+.cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+
+.card {
+border: 1px solid rgba(20,20,20,0.09); border-radius: 4px;
+padding: 2rem; background: #FAFAF8;
+transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
+position: relative; overflow: hidden;
+will-change: transform;
+}
+.card:hover {
+border-color: #FF6A3D;
+box-shadow: 0 8px 32px rgba(255,106,61,0.12);
+transform: translateY(-3px);
+}
+.card::before {
+content: ‘’;
+position: absolute; top: 0; left: 0; right: 0; height: 3px;
+background: #FF6A3D; transform: scaleX(0); transform-origin: left;
+transition: transform 0.3s ease;
+}
+.card:hover::before { transform: scaleX(1); }
+
+.card.hero-card-offer {
+grid-column: span 2;
+background: #0E2A3A;
+border-color: #0E2A3A;
+display: grid; grid-template-columns: 1fr 1fr;
+gap: 2.5rem; align-items: start;
+padding: 2.5rem;
+}
+.card.hero-card-offer::before { background: #FF6A3D; }
+.card.hero-card-offer:hover { border-color: #FF6A3D; }
+
+.card-num {
+font-family: ‘Playfair Display’, serif;
+font-size: 2.8rem; font-weight: 700;
+color: rgba(255,106,61,0.18); line-height: 1; margin-bottom: 0.75rem;
+}
+.card.hero-card-offer .card-num { color: rgba(246,239,230,0.12); }
+
+.card-badge {
+display: inline-block; font-size: 0.65rem;
+letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500;
+color: #FF6A3D; margin-bottom: 0.6rem;
+}
+.card-name {
+font-family: ‘Playfair Display’, serif;
+font-size: 1.25rem; font-weight: 600;
+margin-bottom: 0.6rem; color: #141414; line-height: 1.3;
+}
+.card.hero-card-offer .card-name { color: #F6EFE6; }
+.card-desc { font-size: 0.875rem; line-height: 1.68; color: #787878; }
+.card.hero-card-offer .card-desc { color: rgba(246,239,230,0.7); }
+
+.card-outcomes { margin-top: 1.5rem; }
+.card-outcomes-label {
+font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase;
+color: #787878; font-weight: 500; margin-bottom: 0.75rem;
+}
+.card.hero-card-offer .card-outcomes-label { color: rgba(246,239,230,0.35); }
+.outcomes-list { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+.outcomes-list li {
+font-size: 0.855rem; line-height: 1.55; color: #2C2C2C;
+display: flex; gap: 0.6rem; align-items: flex-start;
+}
+.card.hero-card-offer .outcomes-list li { color: rgba(246,239,230,0.82); }
+.outcomes-list li::before { content: ‘→’; color: #FF6A3D; flex-shrink: 0; font-size: 0.8rem; margin-top: 0.1em; }
+
+/* ─── FOUNDER ─── */
+.founder { padding: 6rem 0; background: #F6EFE6; width: 100%; }
+.founder-inner {
+display: grid;
+grid-template-columns: 320px 1fr;
+gap: 4rem;
+align-items: start;
+max-width: 1080px;
+margin-left: auto !important;
+margin-right: auto !important;
+padding-left: 2rem;
+padding-right: 2rem;
+box-sizing: border-box;
+width: 100%;
+}
+
+.founder-card {
+background: #0E2A3A; border-radius: 6px;
+padding: 2.5rem 2rem; position: relative; top: auto;
+}
+.founder-name {
+font-family: ‘Playfair Display’, serif;
+font-size: 1.55rem; font-weight: 700;
+color: #F6EFE6; margin-bottom: 0.2rem;
+}
+.founder-role {
+font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+color: rgba(246,239,230,0.4); margin-bottom: 2rem;
+}
+.creds { display: flex; flex-direction: column; gap: 0.9rem; }
+.cred { display: flex; gap: 0.8rem; align-items: flex-start; }
+.cred-dot {
+width: 5px; height: 5px; border-radius: 50%;
+background: #FF6A3D; flex-shrink: 0; margin-top: 0.45rem;
+}
+.cred-text { font-size: 0.855rem; color: rgba(246,239,230,0.78); line-height: 1.55; }
+.founder-stamp {
+margin-top: 2rem; padding-top: 1.75rem;
+border-top: 1px solid rgba(246,239,230,0.12);
+font-family: ‘Playfair Display’, serif;
+font-style: italic; font-size: 1.05rem;
+color: #FF6A3D; text-align: center;
+}
+
+.founder-content .eyebrow { margin-bottom: 1.5rem; }
+.founder-content h2 {
+font-family: ‘Playfair Display’, serif;
+font-size: clamp(1.75rem, 2.8vw, 2.3rem);
+font-weight: 700; line-height: 1.2;
+letter-spacing: -0.02em; margin-bottom: 1.5rem;
+}
+.founder-content p {
+font-size: 0.975rem; line-height: 1.8;
+color: #2C2C2C; margin-bottom: 1.25rem;
+}
+
+.moat { margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem; }
+.moat-item {
+display: flex; gap: 1rem; align-items: flex-start;
+padding: 1.1rem 1.25rem;
+border: 1px solid rgba(20,20,20,0.09); border-radius: 4px;
+background: white;
+transition: border-color 0.2s;
+}
+.moat-item:hover { border-color: rgba(255,106,61,0.5); box-shadow: 0 4px 16px rgba(255,106,61,0.08); transform: translateX(4px); }
+.moat-item { transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease; }
+.moat-arrow { color: #FF6A3D; flex-shrink: 0; font-size: 0.85rem; margin-top: 0.2rem; }
+.moat-text { font-size: 0.885rem; line-height: 1.62; color: #2C2C2C; }
+.moat-text strong { color: #141414; font-weight: 500; }
+
+/* ─── OBJECTIONS ─── */
+.objections { background: #141414; padding: 5.5rem 0; }
+.objections-head {
+text-align: center; margin-bottom: 3rem;
+}
+.objections-head h2 {
+font-family: ‘Playfair Display’, serif;
+font-size: clamp(1.6rem, 2.5vw, 2.1rem);
+font-weight: 600; color: #F6EFE6;
+}
+.obj-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; }
+.obj-card {
+background: rgba(246,239,230,0.04);
+border: 1px solid rgba(246,239,230,0.09);
+border-radius: 4px; padding: 1.75rem;
+transition: border-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+will-change: transform;
+}
+.obj-card:hover {
+border-color: rgba(255,106,61,0.5);
+transform: translateY(-2px);
+box-shadow: 0 6px 24px rgba(255,106,61,0.1);
+}
+.obj-q {
+font-family: ‘Playfair Display’, serif;
+font-style: italic; font-size: 0.975rem;
+color: #FF6A3D; line-height: 1.45;
+margin-bottom: 1rem;
+}
+.obj-a { font-size: 0.855rem; line-height: 1.72; color: rgba(246,239,230,0.65); }
+
+/* ─── CTA ─── */
+.cta-section { padding: 8rem 0; text-align: center; position: relative; overflow: hidden; }
+.cta-glow {
+position: absolute;
+width: 600px; height: 600px;
+background: radial-gradient(circle, rgba(255,106,61,0.1) 0%, transparent 65%);
+top: 50%; left: 50%; transform: translate(-50%,-50%);
+pointer-events: none;
+}
+.cta-inner { position: relative; z-index: 1; }
+.cta-inner .eyebrow { margin: 0 auto 1.75rem; display: flex; justify-content: center; }
+.cta-headline {
+font-family: ‘Playfair Display’, serif;
+font-size: clamp(2.4rem, 4.5vw, 3.6rem);
+font-weight: 700; line-height: 1.08;
+letter-spacing: -0.025em;
+max-width: 16ch; margin: 0 auto 1.5rem;
+}
+.cta-sub {
+font-size: 1rem; color: #787878;
+max-width: 44ch; margin: 0 auto 3rem; line-height: 1.75;
+}
+.cta-btns { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.cta-note { font-size: 0.78rem; color: #787878; }
+.cta-note strong { color: #141414; font-weight: 500; }
+
+/* ─── FOOTER ─── */
+footer {
+background: #141414;
+padding: 1.75rem 2.5rem;
+display: flex; align-items: center;
+justify-content: space-between;
+border-top: 1px solid rgba(246,239,230,0.07);
+}
+.footer-logo { font-family: ‘Playfair Display’, serif; font-size: 1.15rem; font-weight: 700; color: #F6EFE6 !important; text-decoration: none; }
+
+.footer-mid { font-size: 0.78rem; font-family: ‘Playfair Display’, serif; font-style: italic; color: rgba(246,239,230,0.7); }
+.footer-links { display: flex; gap: 1.5rem; }
+.footer-link { font-size: 0.78rem; color: rgba(246,239,230,0.85); text-decoration: none; transition: color 0.2s; }
+.footer-link:hover { color: #FF6A3D; }
+
+/* ─── ANIMATIONS ─── */
+.enterprise-card { grid-column: span 2; }
+.enterprise-card:hover { border-color: #FF6A3D; }
+.enterprise-card::before { background: #FF6A3D; }
+@keyframes fadeUp {
+from { opacity: 0; transform: translateY(22px); }
+to   { opacity: 1; transform: translateY(0); }
+}
+.hero-left .eyebrow  { animation: fadeUp 0.55s 0.05s ease both; }
+.hero-headline       { animation: fadeUp 0.55s 0.15s ease both; }
+.hero-sub            { animation: fadeUp 0.55s 0.25s ease both; }
+.hero-ctas           { animation: fadeUp 0.55s 0.35s ease both; }
+.hero-stats-card     { animation: fadeUp 0.65s 0.3s ease both; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 860px) {
+nav { padding: 1rem 1.25rem; }
+.nav-link { display: none; }
+.hero { grid-template-columns: 1fr; min-height: auto; }
+.hero-left { padding: 6.5rem 1.25rem 2.5rem; }
+.hero-right { padding: 2rem 1.25rem 3rem; min-height: 280px; }
+.hero-bg { clip-path: none; }
+.hero-stats-card { max-width: 100%; }
+.container { padding: 0 1.25rem; margin: 0 auto; }
+.problem, .offerings, .founder, .cta-section { padding: 4rem 0; }
+.gap-grid, .cards, .obj-grid { grid-template-columns: 1fr; }
+.card.hero-card-offer { grid-column: span 1; grid-template-columns: 1fr; display: block; }
+.card.hero-card-offer .card-outcomes { margin-top: 1.5rem; }
+.offerings-header { grid-template-columns: 1fr; gap: 1.25rem; }
+.offerings-inner { padding: 0 1.25rem; }
+
+```
+.founder-inner { grid-template-columns: 1fr; gap: 2rem; }
+.founder-card { position: static; }
+.enterprise-card { grid-column: span 1; }
+.enterprise-card > div { grid-template-columns: 1fr !important; }
+footer { flex-direction: column; gap: 0.75rem; text-align: center; }
+.footer-links { justify-content: center; }
+```
+
+}
+</style>
+
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+
+<nav>
+  <a href="#" class="nav-logo">Seré</a>
+  <div class="nav-right">
+    <a href="#offerings" class="nav-link">How it works</a>
+    <a href="#founder" class="nav-link">About</a>
+    <a href="https://calendly.com/hello-serehq/30min" target="_blank" class="btn btn-dark">Book a Call</a>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+
+<section class="hero">
+  <div class="hero-left">
+    <div class="eyebrow">For People Operations &amp; Leadership Teams</div>
+    <h1 class="hero-headline">
+      Silence after leave<br>isn't a personal<br>
+      failure. It's a<br><em>missing infrastructure.</em>
+    </h1>
+    <p class="hero-sub">Your managers want to show up when employees return from caregiving leave. What they're missing isn't intention — it's a protocol. Seré builds it.</p>
+    <div class="hero-ctas">
+      <a href="https://calendly.com/hello-serehq/30min" target="_blank" class="btn btn-papaya">Book a 30-Minute Call</a>
+      <a href="#offerings" class="text-link">See how it works</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-bg"></div>
+    <div class="hero-stats-card">
+      <div class="card-label">The retention cost of silence</div>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-num">40%</div>
+          <div class="stat-text">of mothers leave within one year of returning from parental leave</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">1 in 2</div>
+          <div class="stat-text">managers report lacking confidence in caregiving transition conversations</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">73%</div>
+          <div class="stat-text">of your workforce is navigating a caregiving responsibility right now</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── INTERRUPT ─── -->
+
+<div class="interrupt">
+  <div class="interrupt-inner">
+    <p class="interrupt-text">
+      EAPs address crisis. Therapy addresses clinical need. Wellness addresses lifestyle.
+      <strong>None of them address what happens when someone returns from leave — and both the manager and the employee are waiting for the other to say something real.</strong>
+    </p>
+  </div>
+</div>
+
+<!-- ─── PROBLEM ─── -->
+
+<section class="problem">
+  <div class="container">
+    <div class="eyebrow">The gap your benefits don't cover</div>
+    <h2 class="problem-headline">Your coverage looks complete. Your protocol doesn't exist.</h2>
+    <div class="gap-grid">
+      <div class="gap-cell">
+        <div class="gap-cell-tag">What you have</div>
+        <div class="gap-cell-head">Parental leave. EAPs. Wellness benefits.</div>
+        <div class="gap-cell-body">Organizations invest in leave policies, therapy access, and wellness programs. On paper, the infrastructure looks complete. Managers are assigned. HR is available. Benefits are funded.</div>
+      </div>
+      <div class="gap-cell dark">
+        <div class="gap-cell-tag">What's missing</div>
+        <div class="gap-cell-head">The language for the moment that matters most.</div>
+        <div class="gap-cell-body">The manager walks in. The employee is back. Both are waiting for the other to say something real. Nobody has a protocol. That silence compounds — into distance, quiet disengagement, and a resignation two quarters later.</div>
+      </div>
+      <div class="gap-cell dark">
+        <div class="gap-cell-tag">What AI can't solve</div>
+        <div class="gap-cell-head">A script on demand isn't the same as a norm.</div>
+        <div class="gap-cell-body">Any manager can ask ChatGPT what to say. The ones who avoid these conversations aren't doing so because they lack words — they're doing so because nothing in the culture has ever told them this is their job.</div>
+      </div>
+      <div class="gap-cell">
+        <div class="gap-cell-tag">What Seré installs</div>
+        <div class="gap-cell-head">The expectation, the protocol, the shared language.</div>
+        <div class="gap-cell-body">When we leave, your organization has documented protocols, trained managers, and a language standard that a new hire inherits on day one. That's the difference between a training and an infrastructure.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── OFFERINGS ─── -->
+
+<section class="offerings" id="offerings">
+  <div class="offerings-inner">
+    <div class="offerings-header">
+      <h2 class="offerings-headline">Five ways to work with Seré</h2>
+      <p class="offerings-note">Each offering builds toward the same outcome: caregiving transition conversations that are expected, not exceptional inside your organization. Start where you are.</p>
+    </div>
+    <div class="cards">
+
+```
+  <!-- PILOT - FEATURED -->
+  <div class="card hero-card-offer">
+    <div>
+      <div class="card-num">01</div>
+      <div class="card-badge">Most requested · 90 days</div>
+      <div class="card-name">The Workplace Language Pilot</div>
+      <div class="card-desc">A full infrastructure build for organizations ready to change how caregiving transitions are handled — not as a one-time event, but as an embedded organizational standard.</div>
+    </div>
+    <div class="card-outcomes">
+      <div class="card-outcomes-label">What your organization owns when we're done</div>
+      <ul class="outcomes-list">
+        <li>Documented protocol specific to your organization</li>
+        <li>15–20 managers trained on Seré frameworks</li>
+        <li>Manager Reference Guide (limited to pilot cohort use)</li>
+        <li>Conversation Framework Overview — Ask, Align, Act</li>
+        <li>Baseline and exit data on manager confidence + impact report</li>
+        <li>Internal protocols that run without ongoing facilitation</li>
+      </ul>
+      <div style="margin-top:1.25rem; padding:1rem 1.25rem; background:rgba(246,239,230,0.08); border-left:3px solid #FF6A3D; border-radius:2px;">
+        <p style="font-size:0.78rem; color:rgba(246,239,230,0.6); line-height:1.6; margin:0;"><strong style="color:rgba(246,239,230,0.85);">Pilot license:</strong> Internal use for trained cohort only. To scale to additional managers or certify internal facilitators, see Framework Licensing or Facilitator Certification.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- WORK SESSION -->
+  <div class="card">
+    <div class="card-num">02</div>
+    <div class="card-badge">Single session</div>
+    <div class="card-name">The Work Session</div>
+    <div class="card-desc">A 90-minute norm disruption session for leadership teams. Surfaces the unspoken rules costing retention. Installs shared language the whole room can reference immediately.</div>
+    <div class="card-outcomes">
+      <div class="card-outcomes-label">What your team leaves with</div>
+      <ul class="outcomes-list">
+        <li>Named frameworks managers keep using after the room clears</li>
+        <li>A shared language reference for the team</li>
+        <li>An immediate protocol for the next transition</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- FRAMEWORK LICENSING -->
+  <div class="card">
+    <div class="card-num">03</div>
+    <div class="card-badge">Scalable</div>
+    <div class="card-name">Framework Licensing</div>
+    <div class="card-desc">Seré's language infrastructure embedded into your onboarding, manager training, and HR documentation. The work runs without us in the room.</div>
+    <div class="card-outcomes">
+      <div class="card-outcomes-label">What your organization owns</div>
+      <ul class="outcomes-list">
+        <li>Licensed frameworks for unrestricted internal use</li>
+        <li>Integration into existing HR and L&amp;D systems</li>
+        <li>A self-sustaining language standard at scale</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- FACILITATOR CERT -->
+  <div class="card">
+    <div class="card-num">04</div>
+    <div class="card-badge">Long-term</div>
+    <div class="card-name">Facilitator Certification</div>
+    <div class="card-desc">Certify 2–3 internal facilitators to deliver Seré frameworks independently. Includes training, credential, and annual recertification. The infrastructure stays when we leave.</div>
+    <div class="card-outcomes">
+      <div class="card-outcomes-label">What your organization builds</div>
+      <ul class="outcomes-list">
+        <li>2–3 certified internal facilitators, credentialed by Seré</li>
+        <li>Full delivery rights for trained facilitators</li>
+        <li>Annual recertification to maintain credential</li>
+        <li>Ongoing delivery capacity without external dependency</li>
+      </ul>
+    </div>
+  </div>
+
+
+  <!-- ENTERPRISE -->
+  <div class="card enterprise-card" style="background: #141414; border-color: #141414; color: #F6EFE6;">
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:2.5rem; align-items:start;">
+      <div>
+        <div class="card-num" style="color:rgba(255,106,61,0.15);">05</div>
+        <div class="card-badge">Enterprise</div>
+        <div class="card-name" style="color:#F6EFE6;">Enterprise Infrastructure Build</div>
+        <div class="card-desc" style="color:rgba(246,239,230,0.65);">Multi-cohort training, facilitator certification, annual licensing, and executive reporting. For organizations scaling workplace language infrastructure to 100+ managers across departments or sites.</div>
+      </div>
+      <div class="card-outcomes">
+        <div class="card-outcomes-label" style="color:rgba(246,239,230,0.35);">What enterprise includes</div>
+        <ul class="outcomes-list">
+          <li style="color:rgba(246,239,230,0.82);">Multiple manager cohorts across departments or locations</li>
+          <li style="color:rgba(246,239,230,0.82);">Full framework licensing for organization-wide use</li>
+          <li style="color:rgba(246,239,230,0.82);">Facilitator certification for internal delivery team</li>
+          <li style="color:rgba(246,239,230,0.82);">Executive dashboard and annual impact reporting</li>
+          <li style="color:rgba(246,239,230,0.82);">Annual recertification and framework updates</li>
+        </ul>
+        <a href="https://calendly.com/hello-serehq/30min" target="_blank" style="display:inline-block; margin-top:1.5rem; background:#FF6A3D; color:white; padding:0.75rem 1.5rem; border-radius:2px; font-size:0.85rem; font-weight:500; text-decoration:none;">Talk to Crystel About Enterprise</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+```
+
+  </div>
+</section>
+
+<!-- ─── FOUNDER ─── -->
+
+<section class="founder" id="founder">
+  <div class="founder-inner">
+      <div class="founder-card">
+        <div class="founder-name">Crystel Acevedo</div>
+        <div class="founder-role">Founder &amp; CEO, Seré</div>
+        <div class="creds">
+          <div class="cred"><div class="cred-dot"></div><div class="cred-text">Registered Nurse — years watching people leave clinical visits with the right diagnosis and none of the right words</div></div>
+          <div class="cred"><div class="cred-dot"></div><div class="cred-text">Clinical program leadership across complex care settings</div></div>
+          <div class="cred"><div class="cred-dot"></div><div class="cred-text">Founder building Workplace Language Infrastructure as a recognized organizational category</div></div>
+          <div class="cred"><div class="cred-dot"></div><div class="cred-text">Latina founder — raised in a culture that taught women to stay quiet, building tools so they don't have to</div></div>
+        </div>
+        <div class="founder-stamp">Aquí no se calla.</div>
+      </div>
+
+```
+  <div class="founder-content">
+    <div class="eyebrow">Who built this — and why it matters</div>
+    <h2>This work exists because silence in those moments isn't neutral. It compounds.</h2>
+    <p>I spent years as a nurse watching people leave clinical visits with the right diagnosis and none of the right words. They knew something had shifted — in their body, in their relationship, in how they showed up at work after returning from leave. They just didn't know how to say it. Not to a partner. Not to a manager. Not to themselves.</p>
+    <p>I also watched organizations genuinely try — parental leave, EAPs, wellness benefits — while their managers went silent in the exact conversations that determined whether someone stayed or quietly started looking. The gap isn't coverage. It isn't care. It's language. And that's a problem worth solving.</p>
+    <div class="moat">
+      <div class="moat-item">
+        <span class="moat-arrow">→</span>
+        <div class="moat-text"><strong>AI can generate a script.</strong> It cannot give an organization the permission structure that makes the conversation expected manager behavior.</div>
+      </div>
+      <div class="moat-item">
+        <span class="moat-arrow">→</span>
+        <div class="moat-text"><strong>Workday can flag disengagement.</strong> Seré teaches managers what to say when they walk into that room.</div>
+      </div>
+      <div class="moat-item">
+        <span class="moat-arrow">→</span>
+        <div class="moat-text"><strong>An EAP can provide a hotline.</strong> Seré installs the protocol that prevents the crisis in the first place.</div>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+</section>
+
+<!-- ─── OBJECTIONS ─── -->
+
+<section class="objections">
+  <div class="container">
+    <div class="objections-head">
+      <h2>Questions we hear before every engagement</h2>
+    </div>
+    <div class="obj-grid">
+      <div class="obj-card">
+        <div class="obj-q">"Can't managers just use AI for this?"</div>
+        <div class="obj-a">Yes — and some will. But a manager who's never been told this conversation is their responsibility won't think to ask AI at all. They'll do what the culture has always rewarded: stay quiet. Seré changes what managers believe is expected of them — not just what they have access to.</div>
+      </div>
+      <div class="obj-card">
+        <div class="obj-q">"We already have an EAP and parental leave."</div>
+        <div class="obj-a">EAPs address crisis after it forms. Leave policies cover time away. Neither installs the protocol for the moment a manager and returning employee are in the same room — which is when retention is actually won or lost.</div>
+      </div>
+      <div class="obj-card">
+        <div class="obj-q">"Is this therapy or coaching?"</div>
+        <div class="obj-a">Neither. Seré provides structured language education and organizational protocol development. It's the practical communication infrastructure most organizations were never given for the hardest transitions their people navigate.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA ─── -->
+
+<section class="cta-section">
+  <div class="cta-glow"></div>
+  <div class="container cta-inner">
+    <div class="eyebrow">Let's talk about your organization</div>
+    <h2 class="cta-headline">When we leave, your organization has a protocol.</h2>
+    <p class="cta-sub">That's the difference between a training they attended once and a language standard that runs without us in the room. Let's talk about what that looks like for your team.</p>
+    <div class="cta-btns">
+      <a href="https://calendly.com/hello-serehq/30min" target="_blank" class="btn btn-papaya">Book a 30-Minute Call</a>
+      <a href="mailto:hello@serehq.co" class="btn btn-outline-dark">Email Crystel Directly</a>
+    </div>
+    <p class="cta-note"><strong>No pitch deck. No sales team.</strong> You'll talk directly with the founder.</p>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+
+<footer>
+  <a href="https://serehq.co" class="footer-logo">Seré</a>
+  <div class="footer-mid">Workplace Language Infrastructure</div>
+  <div class="footer-links">
+    <a href="https://serehq.co" class="footer-link">Main Site</a>
+    <a href="mailto:hello@serehq.co" class="footer-link">hello@serehq.co</a>
+    <a href="https://calendly.com/hello-serehq/30min" target="_blank" class="footer-link">Book a Call</a>
+  </div>
+</footer>
+
+</body>
+</html>
